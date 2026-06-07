@@ -1,5 +1,5 @@
 FROM nginx:alpine
-
-COPY nexus.html /usr/share/nginx/html/index.html
-
+# Hozirgi papkadagi barcha statik fayllarni nginx ichiga nusxalaydi
+COPY . /usr/share/nginx/html
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
