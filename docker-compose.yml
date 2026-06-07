@@ -3,11 +3,11 @@ version: "3.8"
 services:
   frontend:
     build:
-      context: ./frontend   # Endi u uzoqqa bormaydi, shu loyiha ichidagi frontend papkasini oladi
+      context: ../network  # Agar serverda 'network' papkasi 'Networking' bilan yonma-yon turgan bo'lsa
       dockerfile: Dockerfile
     container_name: nginx-frontend
     ports:
-      - "80:80"             # Global HTTP so'rovlarni qabul qiladi
+      - "80:80"            # Brauzer so'rovlarini qabul qilish uchun global 80-port
     restart: always
     depends_on:
       - backend
