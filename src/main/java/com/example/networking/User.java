@@ -7,6 +7,8 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
+//entity
 @Table(name = "users")
 @Setter
 @Getter
@@ -21,6 +23,7 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
 
     @Column(nullable = false)
     private String name;
