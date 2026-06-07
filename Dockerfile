@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN chmod +x gradlew
-RUN ./gradlew clean bootJar --no-daemon
+RUN ./gradlew clean bootJar --no-daemon -Dorg.gradle.jvmargs="-Xmx512m -XX:MaxMetaspaceSize=256m"
 
 EXPOSE 8080
 

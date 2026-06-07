@@ -1,28 +1,19 @@
-name: Deploy to EC2
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /home/ubuntu/nexus
-            git fetch origin main
-            git reset --hard origin/main
-            cd backend
-            sudo docker compose down
-            sudo docker compose pull
-            sudo docker compose up -d --build
+    name: Deploy to EC2 via SSH
+    uses: appleboy/ssh-action@v1.0.3
+    with:
+      host: ${{ secrets.EC2_HOST }}
+      username: ${{ secrets.EC2_USERNAME }}
+      key: ${{ secrets.EC2_SSH_KEY }}
+      timeout: 30m          # SSH ulanishi uchun 30 daqiqa vaqt beradi
+      command_timeout: 30m  # Buyruqlar bajarilishi uchun 30 daqiqa vaqt beradi
+      script: |
+        cd /home/ubuntu/nexus
+        git fetch origin main
+        git reset --hard origin/main
+        cd backend
+        sudo docker compose down
+        
+        # Gradle xotirani ko'p yeb qo'ymasligi uchun Docker build-ga argument beramiz
+        # Agar sizda docker-compose versiyasi eski bo'lsa, 'sudo docker-compose' deb yozing
+        sudo docker compose build --no-cache
+        sudo docker compose up -d
