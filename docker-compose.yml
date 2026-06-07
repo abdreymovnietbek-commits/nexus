@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      # Serverga borgan tayyor statik fayllarni to'g'ridan-to'g'ri nginx-ga ulaymiz
+      # Fayl ildizda turgani uchun ./frontend yozuvi mutlaqo to'g'ri!
       - ./frontend:/usr/share/nginx/html
     restart: always
 
@@ -17,10 +17,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # Kompyuterda tayyor bo'lgan jar faylni shundoq konteyner ichiga tashlaymiz
       - ./build/libs:/app
     working_dir: /app
-    # Konteyner ichida jar-ni to'g'ridan-to'g'ri yurgizamiz
     command: java -jar Networking-0.0.1-SNAPSHOT.jar
     depends_on:
       - db
