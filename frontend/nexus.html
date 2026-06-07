@@ -1,235 +1,986 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wholesale Nexus | Cloud ERP · CRM · WMS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <title>Integrated Business Management OS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #0f172a; }
-        .auth-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 20px; }
-        .auth-card { background: white; border-radius: 32px; padding: 48px; width: 100%; max-width: 480px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-        .auth-card h1 { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #0f172a, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #334155; }
-        .form-group input { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 1rem; }
-        .auth-btn { width: 100%; padding: 14px; background: #0f172a; color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 12px; }
-        .auth-link { text-align: center; margin-top: 24px; color: #64748b; }
-        .auth-link a { color: #3b82f6; text-decoration: none; cursor: pointer; }
-        .app-wrapper { display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: linear-gradient(180deg, #0f172a 0%, #0a0f1c 100%); color: #e2e8f0; position: fixed; height: 100vh; }
-        .logo-area { padding: 32px 24px; border-bottom: 1px solid #1e293b; }
-        .logo-area h2 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .nav-menu { padding: 20px 16px; }
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; color: #94a3b8; }
-        .nav-item.active { background: #1e293b; color: white; }
-        .main-content { flex: 1; margin-left: 280px; }
-        .top-bar { background: white; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
-        .page-title { font-size: 1.5rem; font-weight: 700; color: #0f172a; }
-        .logout-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; color: #64748b; padding: 8px 16px; border-radius: 8px; }
-        .logout-btn:hover { background: #f1f5f9; color: #dc2626; }
-        .content-area { padding: 32px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 32px; }
-        .stat-card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
-        .stat-card .label { font-size: 0.8rem; text-transform: uppercase; font-weight: 600; color: #64748b; }
-        .stat-card .value { font-size: 2.5rem; font-weight: 700; margin-top: 12px; color: #0f172a; }
-        .module-panel { background: white; border-radius: 20px; padding: 24px; margin-bottom: 32px; border: 1px solid #e2e8f0; }
-        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .btn-primary { background: #0f172a; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f8fafc; font-weight: 600; }
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
-        .badge-success { background: #dcfce7; color: #166534; }
-        .customer-grid, .inventory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .customer-card, .inventory-item { border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; }
-        @media (max-width: 768px) { .sidebar { width: 80px; } .sidebar span { display: none; } .main-content { margin-left: 80px; } }
+        /* ------------------------------------ */
+        /* GLOBAL DESIGN & COLOR PALETTE        */
+        /* ------------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* ------------------------------------ */
+        /* AUTHENTICATION (LOGIN/REGISTER)      */
+        /* ------------------------------------ */
+        .auth-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .auth-card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .auth-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .auth-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+        }
+
+        .auth-input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 14px 12px 40px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: #ff9f43;
+            box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.15);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff9f43;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .auth-btn:hover { background: #e68a2e; }
+
+        .auth-toggle {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .auth-toggle span {
+            color: #ff9f43;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .auth-error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+            text-align: left;
+            border-left: 4px solid #dc2626;
+        }
+
+        /* ------------------------------------ */
+        /* APPLICATION WORKSPACE STRUCTURE     */
+        /* ------------------------------------ */
+        .sidebar {
+            width: 260px;
+            background-color: #111827;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ff9f43;
+            text-align: center;
+        }
+
+        .user-profile-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #1f2937;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            background: #ff9f43;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .user-info-text h4 {
+            font-size: 13px;
+            color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .user-info-text p {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .sidebar-menu li:hover, .sidebar-menu li.active {
+            background-color: #1f2937;
+            color: #ffffff;
+        }
+
+        .sidebar-menu li.active {
+            border-left: 4px solid #ff9f43;
+            padding-left: 11px;
+        }
+
+        .logout-btn-wrapper { margin-top: auto; }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* ------------------------------------ */
+        /* DASHBOARD COMPONENTS                 */
+        /* ------------------------------------ */
+        .card-shadow {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-card { padding: 20px; }
+
+        .kpi-card.dark {
+            background: #193a6f;
+            color: white;
+            border: none;
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+        .kpi-card.dark .kpi-header { color: #abc0e4; }
+
+        .kpi-value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .dashboard-body {
+            display: flex;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .left-charts {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px 20px;
+            align-items: center;
+            background: #fff;
+        }
+
+        .chart-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chart-card-header h3 {
+            font-size: 14px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .btn-orange {
+            background: #ff9f43;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-orange:hover { background: #e68a2e; }
+
+        .circle-chart-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin-bottom: 20px;
+        }
+
+        .lorem-list {
+            width: 100%;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .lorem-list li {
+            font-size: 12px;
+            color: #64748b;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+        }
+        .lorem-list li:last-child { border-bottom: none; }
+
+        /* ------------------------------------ */
+        /* DETAILED MODULE INTERFACES           */
+        /* ------------------------------------ */
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 12px 8px 35px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th, .data-table td {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13.5px;
+        }
+
+        .data-table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-table tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.15s;
+        }
+
+        .data-table tbody tr:hover { background-color: #f8fafc; }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        .status-completed { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef9c3; color: #854d0e; }
+        .status-canceled { background: #fee2e2; color: #991b1b; }
+
+        .segment-badge {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 500;
+        }
+        .seg-premium { background: #fae8ff; color: #86198f; }
+        .seg-standard { background: #e0f2fe; color: #0369a1; }
+        .seg-vip { background: #fef3c7; color: #92400e; }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        .action-btn:hover {
+            color: #1e293b;
+            background: #e2e8f0;
+        }
     </style>
 </head>
 <body>
-<div id="app"></div>
+
+<div id="authLayer" class="auth-container">
+    <div id="loginCard" class="auth-card">
+        <h2>Tizimga Kirish</h2>
+        <p>Enterprise OS boshqaruv paneliga kiring</p>
+
+        <div id="loginError" class="auth-error"></div>
+
+        <div class="auth-group">
+            <label>E-pochta manzili</label>
+            <div class="auth-input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="loginEmail" class="auth-input" placeholder="example@gmail.com" value="admin@gmail.com">
+            </div>
+        </div>
+
+        <div class="auth-group">
+            <label>Maxfiy kod (Password)</label>
+            <div class="auth-input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="loginPassword" class="auth-input" placeholder="••••••••" value="password123">
+            </div>
+        </div>
+
+        <button class="auth-btn" onclick="handleLogin()">Kirish</button>
+
+        <div class="auth-toggle">
+            Hisobingiz yo'qmi? <span onclick="toggleAuthCards('register')">Ro'yxatdan o'tish</span>
+        </div>
+    </div>
+
+    <div id="registerCard" class="auth-card" style="display: none;">
+        <h2>Ro'yxatdan O'tish</h2>
+        <p>Yangi korporativ boshqaruvchi hisobini oching</p>
+
+        <div id="registerError" class="auth-error"></div>
+
+        <div class="auth-group">
+            <label>To'liq Ism-sharifingiz</label>
+            <div class="auth-input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="regName" class="auth-input" placeholder="Ali Valiyev">
+            </div>
+        </div>
+
+        <div class="auth-group">
+            <label>E-pochta manzili</label>
+            <div class="auth-input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="regEmail" class="auth-input" placeholder="ism@gmail.com">
+            </div>
+        </div>
+
+        <div class="auth-group">
+            <label>Maxfiy kod yarating</label>
+            <div class="auth-input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="regPassword" class="auth-input" placeholder="Kamida 1 ta belgi">
+            </div>
+        </div>
+
+        <button class="auth-btn" onclick="handleRegister()">Ro'yxatdan o'tish</button>
+
+        <div class="auth-toggle">
+            Sizda profil bormi? <span onclick="toggleAuthCards('login')">Kirish paneli</span>
+        </div>
+    </div>
+</div>
+
+<div id="appSidebar" class="sidebar" style="display: none;">
+    <h2>Enterprise OS</h2>
+
+    <div class="user-profile-box">
+        <div class="user-avatar" id="avatarInitial">A</div>
+        <div class="user-info-text">
+            <h4 id="userDisplayName">Admin Account</h4>
+            <p id="userDisplayEmail">admin@gmail.com</p>
+        </div>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="active" id="menu-dashboard" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</li>
+        <li id="menu-erp" onclick="switchTab('erp')"><i class="fa-solid fa-cart-shopping"></i> ERP Orders</li>
+        <li id="menu-crm" onclick="switchTab('crm')"><i class="fa-solid fa-users"></i> CRM Customers</li>
+        <li id="menu-wms" onclick="switchTab('wms')"><i class="fa-solid fa-warehouse"></i> WMS Inventory</li>
+    </ul>
+
+    <div class="logout-btn-wrapper">
+        <button class="logout-btn" onclick="handleLogout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Tizimdan chiqish
+        </button>
+    </div>
+</div>
+
+<div id="appContent" class="main-content" style="display: none;">
+    <div class="page-header">
+        <h1 id="pageTitle">Dashboard Overview</h1>
+    </div>
+
+    <div id="dynamicContent"></div>
+</div>
 
 <script>
-    const API_BASE = 'http://localhost:8080';
-    let currentUser = JSON.parse(localStorage.getItem('user'));
-    let currentTab = 'dashboard';
+    // ------------------------------------
+    // DATA ARRAYS (KO'PAYTIRILGAN MULTI-ROWS)
+    // ------------------------------------
+    let currentUser = { name: "Admin Account", email: "admin@gmail.com" };
 
-    const DEMO_ERP_ORDERS = [
-        { id: 'PO-10045', customer: 'Fashion Hub Wholesale', date: '2025-02-15', status: 'Shipped', total: 24750 },
-        { id: 'PO-10046', customer: 'Urban Collection Ltd', date: '2025-02-14', status: 'Processing', total: 18900 }
+    let ordersData = [
+        { id: "ORD-001", customer: "Ali Valiyev", product: "Laptop Asus Vivobook", totalValue: 1200, status: "Completed" },
+        { id: "ORD-002", customer: "Olim Shokirov", product: "iPhone 15 Pro Max", totalValue: 1400, status: "Pending" },
+        { id: "ORD-003", customer: "Madina Umarova", product: "Apple AirPods Pro 2", totalValue: 250, status: "Completed" },
+        { id: "ORD-004", customer: "Sardor Rahimov", product: "Samsung Galaxy S24", totalValue: 1050, status: "Completed" },
+        { id: "ORD-005", customer: "Dilnoza Ahmedova", product: "MacBook Air M3", totalValue: 1350, status: "Canceled" },
+        { id: "ORD-006", customer: "Jasur Komilov", product: "Sony WH-1000XM5", totalValue: 380, status: "Pending" },
+        { id: "ORD-007", customer: "Nigora Aliyeva", product: "iPad Pro 11-inch", totalValue: 900, status: "Completed" },
+        { id: "ORD-008", customer: "Farruh Karimov", product: "Dell XPS 13 Gaming", totalValue: 1750, status: "Completed" }
     ];
 
-    const DEMO_CRM_CUSTOMERS = [
-        { id: 1, company: 'Fashion Hub Wholesale', contact: 'Michael Chen', email: 'michael@fashionhub.com', type: 'Gold Partner', lastActivity: '2025-02-15', status: 'Active' },
-        { id: 2, company: 'Urban Collection Ltd', contact: 'Sarah Johnson', email: 'sarah@urbancollection.com', type: 'Wholesale', lastActivity: '2025-02-14', status: 'Active' }
+    let customersData = [
+        { id: "CUST-101", name: "Ali Valiyev", email: "ali@gmail.com", phone: "+998901234567", segment: "Premium" },
+        { id: "CUST-102", name: "Olim Shokirov", email: "olim@gmail.com", phone: "+998937778899", segment: "Standard" },
+        { id: "CUST-103", name: "Madina Umarova", email: "madina@gmail.com", phone: "+998941112233", segment: "Premium" },
+        { id: "CUST-104", name: "Sardor Rahimov", email: "sardor@gmail.com", phone: "+998915554422", segment: "VIP" },
+        { id: "CUST-105", name: "Dilnoza Ahmedova", email: "dilnoza@gmail.com", phone: "+998978881122", segment: "Standard" },
+        { id: "CUST-106", name: "Jasur Komilov", email: "jasur@gmail.com", phone: "+998904445566", segment: "Standard" },
+        { id: "CUST-107", name: "Nigora Aliyeva", email: "nigora@gmail.com", phone: "+998933334455", segment: "VIP" }
     ];
 
-    const DEMO_WMS_INVENTORY = [
-        { sku: 'WH-POLO-001', name: 'Premium Cotton Polo', category: 'Tops', quantity: 450, location: 'A-12-01', status: 'In Stock', reorderLevel: 100 },
-        { sku: 'WH-DENIM-002', name: 'Slim Fit Jeans', category: 'Bottoms', quantity: 128, location: 'B-07-03', status: 'Low Stock', reorderLevel: 150 }
+    let inventoryItems = [
+        { sku: "INV-AS-01", name: "Laptop Asus Vivobook X", qty: 15, warehouse: "Tashkent Main Hub" },
+        { sku: "INV-IP-15", name: "iPhone 15 Pro Max 256GB", qty: 8, warehouse: "Tashkent Main Hub" },
+        { sku: "INV-AP-22", name: "Apple AirPods Pro v2", qty: 45, warehouse: "Samarkand Regional" },
+        { sku: "INV-SAM-S24", name: "Samsung Galaxy S24 Ultra", qty: 12, warehouse: "Fergana Valley Dept" },
+        { sku: "INV-MAC-M3", name: "MacBook Air M3 / 16GB", qty: 4, warehouse: "Tashkent Main Hub" },
+        { sku: "INV-SONY-X5", name: "Sony WH-1000XM5 Black", qty: 22, warehouse: "Bukhara Logix" },
+        { sku: "INV-IPAD-P11", name: "iPad Pro 11 128GB Wi-Fi", qty: 19, warehouse: "Samarkand Regional" }
     ];
 
-    let erpOrders = [...DEMO_ERP_ORDERS];
-    let crmCustomers = [...DEMO_CRM_CUSTOMERS];
-    let wmsInventory = [...DEMO_WMS_INVENTORY];
-    let dispatchItems = [];
+    let activeCharts = {};
 
+    // ------------------------------------
+    // AUTHENTICATION LOGIC
+    // ------------------------------------
+    function toggleAuthCards(cardType) {
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('registerError').style.display = 'none';
+
+        if(cardType === 'register') {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('registerCard').style.display = 'block';
+        } else {
+            document.getElementById('loginCard').style.display = 'block';
+            document.getElementById('registerCard').style.display = 'none';
+        }
+    }
+
+    function handleLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const errDiv = document.getElementById('loginError');
+
+        if(!email.endsWith('@gmail.com')) {
+            errDiv.innerText = "Xato: Elektron pochta manzili oxiri '@gmail.com' bilan tugashi shart!";
+            errDiv.style.display = 'block';
+            return;
+        }
+        if(pass.length === 0) {
+            errDiv.innerText = "Xato: Maxfiy kod (Password) maydoni bo'sh bo'lmasligi kerak!";
+            errDiv.style.display = 'block';
+            return;
+        }
+
+        currentUser.email = email;
+        currentUser.name = email.split('@')[0].toUpperCase();
+        enterApplication();
+    }
+
+    function handleRegister() {
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const pass = document.getElementById('regPassword').value;
+        const errDiv = document.getElementById('registerError');
+
+        if(name === "") {
+            errDiv.innerText = "Xato: Ism-sharifingizni kiriting!";
+            errDiv.style.display = 'block';
+            return;
+        }
+        if(!email.endsWith('@gmail.com')) {
+            errDiv.innerText = "Xato: E-pochta oxiri '@gmail.com' bo'lishi shart!";
+            errDiv.style.display = 'block';
+            return;
+        }
+        if(pass.length === 0) {
+            errDiv.innerText = "Xato: Maxfiy kod bo'sh qolmasligi shart!";
+            errDiv.style.display = 'block';
+            return;
+        }
+
+        currentUser.name = name;
+        currentUser.email = email;
+        enterApplication();
+    }
+
+    function enterApplication() {
+        document.getElementById('authLayer').style.display = 'none';
+        document.getElementById('appSidebar').style.display = 'flex';
+        document.getElementById('appContent').style.display = 'block';
+
+        document.getElementById('userDisplayName').innerText = currentUser.name;
+        document.getElementById('userDisplayEmail').innerText = currentUser.email;
+        document.getElementById('avatarInitial').innerText = currentUser.name.charAt(0);
+
+        renderDashboard();
+    }
+
+    function handleLogout() {
+        document.getElementById('appSidebar').style.display = 'none';
+        document.getElementById('appContent').style.display = 'none';
+        document.getElementById('authLayer').style.display = 'flex';
+        document.getElementById('loginPassword').value = '';
+    }
+
+    // ------------------------------------
+    // TAB NAVIGATION SYSTEM
+    // ------------------------------------
+    function switchTab(tabName) {
+        document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
+        document.getElementById(`menu-${tabName}`).classList.add('active');
+
+        const title = document.getElementById('pageTitle');
+        if (tabName === 'dashboard') { title.innerText = "Dashboard Overview"; renderDashboard(); }
+        else if (tabName === 'erp') { title.innerText = "ERP / Sales Order Processing"; renderERP(); }
+        else if (tabName === 'crm') { title.innerText = "CRM / Client Master Directory"; renderCRM(); }
+        else if (tabName === 'wms') { title.innerText = "WMS / Multi-Hub Warehouse Inventory"; renderWMS(); }
+    }
+
+    // ------------------------------------
+    // MODULE RENDERERS
+    // ------------------------------------
     function renderDashboard() {
-        const totalInventory = wmsInventory.reduce((sum, item) => sum + (item.quantity || 0), 0);
-        const activeCustomers = crmCustomers.filter(c => c.status === 'Active').length;
-        const pendingOrders = erpOrders.filter(o => o.status === 'Processing').length;
+        const totalRevenue = ordersData.reduce((sum, o) => o.status !== 'Canceled' ? sum + o.totalValue : sum, 0);
+        const totalInventoryQty = inventoryItems.reduce((sum, i) => sum + i.qty, 0);
+        const earningK = (totalRevenue / 1000).toFixed(1);
 
-        const html = `
-                <div class="stats-grid">
-                    <div class="stat-card"><div class="label">Total Inventory</div><div class="value">${totalInventory}</div></div>
-                    <div class="stat-card"><div class="label">Active Customers</div><div class="value">${activeCustomers}</div></div>
-                    <div class="stat-card"><div class="label">Pending Orders</div><div class="value">${pendingOrders}</div></div>
-                    <div class="stat-card"><div class="label">System Status</div><div class="value"><span class="badge badge-success">Online</span></div></div>
+        document.getElementById('dynamicContent').innerHTML = `
+                <div class="dashboard-container">
+                    <div class="kpi-grid">
+                        <div class="kpi-card card-shadow dark">
+                            <div class="kpi-header"><span>Earning (Net Revenue)</span> <i class="fa-solid fa-circle-dollar-to-slot"></i></div>
+                            <div class="kpi-value">$ ${earningK}K</div>
+                        </div>
+                        <div class="kpi-card card-shadow">
+                            <div class="kpi-header"><span>Total Stock Units</span> <i class="fa-solid fa-boxes-stacked"></i></div>
+                            <div class="kpi-value">${totalInventoryQty}</div>
+                        </div>
+                        <div class="kpi-card card-shadow">
+                            <div class="kpi-header"><span>Registered Clients</span> <i class="fa-solid fa-users"></i></div>
+                            <div class="kpi-value">${customersData.length}</div>
+                        </div>
+                        <div class="kpi-card card-shadow">
+                            <div class="kpi-header"><span>System SLA</span> <i class="fa-solid fa-circle-nodes"></i></div>
+                            <div class="kpi-value">99.9%</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-body">
+                        <div class="left-charts">
+                            <div class="chart-card card-shadow" style="padding: 20px;">
+                                <div class="chart-card-header">
+                                    <h3>Operational Result Performance</h3>
+                                    <button class="btn-orange">Check Logs</button>
+                                </div>
+                                <div style="height: 180px; position: relative;">
+                                    <canvas id="resultBarChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-card card-shadow" style="padding: 20px;">
+                                <div style="height: 120px; position: relative;">
+                                    <canvas id="waveAreaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-panel card-shadow">
+                            <div class="circle-chart-wrapper">
+                                <canvas id="radialProgressChart"></canvas>
+                            </div>
+                            <ul class="lorem-list">
+                                <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 5px;"></i> System Performance (Optimal)</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 5px;"></i> DB Clusters (Synced)</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 5px;"></i> AWS Node Health (Active)</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 5px;"></i> Microservice Event Queues</li>
+                            </ul>
+                            <button class="btn-orange" style="width: 100%; padding: 8px 0;" onclick="alert('Barcha monitoring tizimlari holati yashil!')">Update Metrics</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="module-panel"><div class="panel-header"><h3>Cloud System Health</h3></div>
-                <div><span class="badge badge-success">Backend: Online</span> <span class="badge badge-success">Database: Connected</span></div></div>
             `;
-        document.querySelector('.content-area').innerHTML = html;
+        setTimeout(initDashboardCharts, 40);
+    }
+
+    function initDashboardCharts() {
+        if(activeCharts.resultBar) activeCharts.resultBar.destroy();
+        if(activeCharts.waveArea) activeCharts.waveArea.destroy();
+        if(activeCharts.radial) activeCharts.radial.destroy();
+
+        const ctx1 = document.getElementById('resultBarChart')?.getContext('2d');
+        if (ctx1) {
+            activeCharts.resultBar = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEP'],
+                    datasets: [
+                        { label: 'Created', data: [18, 38, 15, 12, 34, 48, 35, 19, 28], backgroundColor: '#193a6f', barPercentage: 0.4 },
+                        { label: 'Completed', data: [25, 20, 28, 16, 24, 12, 19, 30, 36], backgroundColor: '#ff9f43', barPercentage: 0.4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { grid: { display: false } }, y: { max: 50 } }
+                }
+            });
+        }
+
+        const ctx2 = document.getElementById('waveAreaChart')?.getContext('2d');
+        if (ctx2) {
+            let gradient = ctx2.createLinearGradient(0, 0, 0, 120);
+            gradient.addColorStop(0, 'rgba(255, 159, 67, 0.4)');
+            gradient.addColorStop(1, 'rgba(255, 159, 67, 0.0)');
+
+            activeCharts.waveArea = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                    datasets: [{
+                        data: [12, 19, 10, 28, 45, 22, 38, 18, 32, 15],
+                        borderColor: '#ff9f43',
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } }
+                }
+            });
+        }
+
+        const ctx3 = document.getElementById('radialProgressChart')?.getContext('2d');
+        if (ctx3) {
+            activeCharts.radial = new Chart(ctx3, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{ data: [45, 55], backgroundColor: ['#ff9f43', '#193a6f'], borderWidth: 0 }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } }
+                }
+            });
+
+            const wrapper = document.getElementById('radialProgressChart').parentElement;
+            if(!document.getElementById('center-text')) {
+                let textDiv = document.createElement('div');
+                textDiv.id = 'center-text';
+                textDiv.style.position = 'absolute';
+                textDiv.style.top = '50%';
+                textDiv.style.left = '50%';
+                textDiv.style.transform = 'translate(-50%, -50%)';
+                textDiv.style.fontSize = '22px';
+                textDiv.style.fontWeight = '700';
+                textDiv.style.color = '#1e293b';
+                textDiv.innerText = '45%';
+                wrapper.appendChild(textDiv);
+            }
+        }
     }
 
     function renderERP() {
-        const html = `
-                <div class="module-panel">
-                    <div class="panel-header"><h3>ERP Order Processing</h3><button class="btn-primary" id="createOrderBtn">+ Create Order</button></div>
-                    <table><thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Status</th><th>Total</th></tr></thead>
-                    <tbody>${erpOrders.map(o => `<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.date}</td><td><span class="badge badge-success">${o.status}</span></td><td>$${o.total}</td></tr>`).join('')}</tbody>
-                </table>
+        let rows = ordersData.map(order => `
+                <tr>
+                    <td><strong>${order.id}</strong></td>
+                    <td><i class="fa-solid fa-user-tie" style="color:#64748b; margin-right:6px;"></i>${order.customer}</td>
+                    <td>${order.product}</td>
+                    <td><strong>$${order.totalValue}</strong></td>
+                    <td><span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span></td>
+                    <td>
+                        <button class="action-btn" onclick="alert('${order.id} tahrirlash')"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="action-btn" onclick="alert('${order.id} yuklash')"><i class="fa-solid fa-download"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+
+        document.getElementById('dynamicContent').innerHTML = `
+                <div class="table-toolbar">
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="search-input" placeholder="Order yoki mijoz filter...">
+                    </div>
+                    <button class="btn-orange" onclick="alert('Yangi buyurtma')"><i class="fa-solid fa-plus"></i> Add Order</button>
                 </div>
+                <table class="data-table card-shadow">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Mijoz Ismi</th>
+                            <th>Sotib Olingan Mahsulot</th>
+                            <th>Tranzaksiya Summasi</th>
+                            <th>Logistika Holati</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
             `;
-        document.querySelector('.content-area').innerHTML = html;
-        document.getElementById('createOrderBtn')?.addEventListener('click', () => alert('Create ERP Order'));
     }
 
     function renderCRM() {
-        const html = `
-                <div class="module-panel">
-                    <div class="panel-header"><h3>CRM Customer Management</h3><button class="btn-primary" id="addCustomerBtn">+ Add Customer</button></div>
-                    <div class="customer-grid">${crmCustomers.map(c => `
-                        <div class="customer-card"><h4>${c.company}</h4><div>${c.contact}</div><div>${c.email}</div><div>${c.type}</div><span class="badge badge-success">${c.status}</span></div>
-                    `).join('')}</div>
+        let rows = customersData.map(cust => `
+                <tr>
+                    <td><strong>${cust.id}</strong></td>
+                    <td>${cust.name}</td>
+                    <td><i class="fa-solid fa-envelope" style="color:#94a3b8; margin-right:6px;"></i>${cust.email}</td>
+                    <td>${cust.phone}</td>
+                    <td><span class="segment-badge seg-${cust.segment.toLowerCase()}">${cust.segment}</span></td>
+                    <td>
+                        <button class="action-btn" onclick="alert('${cust.name} xronologiya')"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                        <button class="action-btn" onclick="alert('${cust.name} xat yuborish')"><i class="fa-solid fa-paper-plane"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+
+        document.getElementById('dynamicContent').innerHTML = `
+                <div class="table-toolbar">
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="search-input" placeholder="Mijoz qidiruv...">
+                    </div>
+                    <button class="btn-orange" onclick="alert('Yangi mijoz')"><i class="fa-solid fa-user-plus"></i> Add Customer</button>
                 </div>
+                <table class="data-table card-shadow">
+                    <thead>
+                        <tr>
+                            <th>Client Code</th>
+                            <th>To'liq Ism-sharif</th>
+                            <th>Aloqa E-pochtasi</th>
+                            <th>Telefon Raqam</th>
+                            <th>Sodiqlik Reytingi</th>
+                            <th>Boshqaruv</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
             `;
-        document.querySelector('.content-area').innerHTML = html;
     }
 
     function renderWMS() {
-        const html = `
-                <div class="module-panel">
-                    <div class="panel-header"><h3>WMS Inventory</h3><button class="btn-primary" id="addInventoryBtn">+ Add Stock</button></div>
-                    <div class="inventory-grid">${wmsInventory.map(i => `
-                        <div class="inventory-item"><h4>${i.name}</h4><div>SKU: ${i.sku}</div><div>Qty: ${i.quantity}</div><div>Location: ${i.location}</div><span class="badge badge-success">${i.status}</span></div>
-                    `).join('')}</div>
-                </div>
-            `;
-        document.querySelector('.content-area').innerHTML = html;
-    }
+        let rows = inventoryItems.map(item => `
+                <tr>
+                    <td><strong>${item.sku}</strong></td>
+                    <td>${item.name}</td>
+                    <td><span style="font-weight:600; color:${item.qty < 5 ? '#dc2626' : item.qty < 15 ? '#b45309' : '#16a34a'}">${item.qty} dona</span></td>
+                    <td><i class="fa-solid fa-warehouse" style="color:#94a3b8; margin-right:6px;"></i>${item.warehouse}</td>
+                    <td>
+                        <button class="action-btn" onclick="alert('${item.sku} balansi')"><i class="fa-solid fa-dolly"></i></button>
+                        <button class="action-btn" onclick="alert('${item.sku} transfer')"><i class="fa-solid fa-truck-ramp-box"></i></button>
+                    </td>
+                </tr>
+            `).join('');
 
-    function renderDispatch() {
-        const html = `<div class="module-panel"><div class="panel-header"><h3>Dispatch List</h3><button class="btn-primary" id="createDispatchBtn">Create Dispatch</button></div>
-                ${dispatchItems.length === 0 ? '<p style="text-align:center;padding:40px;">No items in dispatch list</p>' : '<table>...</table>'}
-            </div>`;
-        document.querySelector('.content-area').innerHTML = html;
-    }
-
-    function renderCurrentView() {
-        if (currentTab === 'dashboard') renderDashboard();
-        else if (currentTab === 'erp') renderERP();
-        else if (currentTab === 'crm') renderCRM();
-        else if (currentTab === 'wms') renderWMS();
-        else if (currentTab === 'dispatch') renderDispatch();
-        document.querySelector('.page-title').innerText = currentTab.toUpperCase();
-    }
-
-    function showLoginPage() {
-        document.getElementById('app').innerHTML = `
-                <div class="auth-container">
-                    <div class="auth-card">
-                        <h1>Wholesale Nexus</h1>
-                        <div class="subtitle">Cloud ERP · CRM · WMS Portal</div>
-                        <form id="loginForm">
-                            <div class="form-group"><label>Email</label><input type="email" id="email" required placeholder="admin@wholesale.com"></div>
-                            <div class="form-group"><label>Password</label><input type="password" id="password" required placeholder="••••••••"></div>
-                            <button type="submit" class="auth-btn">Sign In</button>
-                        </form>
-                        <div class="auth-link"><a id="showRegister">Create Account</a></div>
+        document.getElementById('dynamicContent').innerHTML = `
+                <div class="table-toolbar">
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="search-input" placeholder="SKU bo'yicha filter...">
                     </div>
+                    <button class="btn-orange" onclick="alert('Import')"><i class="fa-solid fa-boxes-packing"></i> Import Stock</button>
                 </div>
+                <table class="data-table card-shadow">
+                    <thead>
+                        <tr>
+                            <th>SKU Seriya raqami</th>
+                            <th>Tovar Modeli</th>
+                            <th>Zaxira balansi</th>
+                            <th>Joylashgan Hub</th>
+                            <th>Logistika</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
             `;
-
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            currentUser = { name: 'Admin', email: email };
-            localStorage.setItem('user', JSON.stringify(currentUser));
-            initApp();
-        });
-
-        document.getElementById('showRegister').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Demo mode: Use any credentials to login');
-        });
-    }
-
-    function initApp() {
-        document.getElementById('app').innerHTML = `
-                <div class="app-wrapper">
-                    <div class="sidebar">
-                        <div class="logo-area"><h2>Wholesale Nexus</h2><p>Cloud ERP · CRM · WMS</p></div>
-                        <div class="nav-menu">
-                            <div class="nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></div>
-                            <div class="nav-item" data-tab="erp"><i class="fas fa-chart-line"></i> <span>ERP · Orders</span></div>
-                            <div class="nav-item" data-tab="crm"><i class="fas fa-users"></i> <span>CRM · Customers</span></div>
-                            <div class="nav-item" data-tab="wms"><i class="fas fa-warehouse"></i> <span>WMS · Inventory</span></div>
-                            <div class="nav-item" data-tab="dispatch"><i class="fas fa-truck-fast"></i> <span>Dispatch List</span></div>
-                        </div>
-                    </div>
-                    <div class="main-content">
-                        <div class="top-bar">
-                            <div class="page-title">Dashboard</div>
-                            <div class="user-menu">
-                                <span><i class="fas fa-user-circle"></i> ${currentUser?.name || 'Admin'}</span>
-                                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                            </div>
-                        </div>
-                        <div class="content-area"></div>
-                    </div>
-                </div>
-            `;
-
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                item.classList.add('active');
-                currentTab = item.getAttribute('data-tab');
-                renderCurrentView();
-            });
-        });
-
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('user');
-            currentUser = null;
-            showLoginPage();
-        });
-
-        renderCurrentView();
-    }
-
-    if (currentUser) {
-        initApp();
-    } else {
-        showLoginPage();
     }
 </script>
 </body>
 </html>
-
-
-//ishladimi?
